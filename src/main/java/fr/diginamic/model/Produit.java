@@ -144,8 +144,8 @@ public class Produit {
 		this.fer100g = ParseService.tryToParse(tableauFichier[25]);
 		this.betaCarotene100g = ParseService.tryToParse(tableauFichier[26]);
 		this.presenceHuilePalme = ParseService.parseBoolean(tableauFichier[27]);
-		this.allergenes = tableauFichier[28];
-		this.additifs = tableauFichier[29];
+//		this.allergenes = tableauFichier[28];
+//		this.additifs = tableauFichier[29];
 	}
 
 	@Override

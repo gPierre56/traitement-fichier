@@ -27,6 +27,7 @@ public class TraitementService {
 		HashSet<Produit> listeProduits = new HashSet<Produit>();
 
 		for (int i = 1; i < liste.size(); i++) {
+			System.out.println(liste.get(i));
 			String[] tableauFichier = liste.get(i).split("\\|");
 
 			Categorie categorie = new Categorie(tableauFichier[0]);

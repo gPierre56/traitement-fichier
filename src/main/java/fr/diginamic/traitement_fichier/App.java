@@ -17,6 +17,8 @@ public class App {
 
 	public static void main(String[] args) {
 
+		long debut = System.currentTimeMillis();
+
 		TraitementService traitementService = new TraitementService();
 
 		// configuration du driver
@@ -34,6 +36,8 @@ public class App {
 		} catch (IOException e) {
 			throw new TechnicalException("Erreur dans la lecture du fichier", e);
 		}
+
+		System.out.println(System.currentTimeMillis() - debut);
 
 	}
 }
