@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diginamic.exceptions.TechnicalException;
-import fr.diginamic.model.Marque;
+import fr.diginamic.model.Ingredient;
 import fr.diginamic.utils.ConnectionManager;
 
-public class MarqueDao implements IMarqueDao {
+public class IngredientDao implements IIngredientDao {
 
 	@Override
-	public void saveNew(Marque m) {
+	public void saveNew(Ingredient i) {
+
 		Connection con = ConnectionManager.getInstance();
 		try {
-			PreparedStatement statement = con.prepareStatement("INSERT into marque values (?,?)");
-			statement.setInt(1, m.getIdmarque());
-			statement.setString(2, m.getNomMarque());
+			PreparedStatement statement = con.prepareStatement("INSERT into ingredient values (?,?)");
+			statement.setInt(1, i.getIdIngredient());
+			statement.setString(2, i.getNomIngredient());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			throw new TechnicalException("Ajout de la marque impossible", e);
+			throw new TechnicalException("Ajout de l'ingrédient impossible", e);
 		}
 
 		try {
@@ -36,22 +37,22 @@ public class MarqueDao implements IMarqueDao {
 	}
 
 	@Override
-	public List<Marque> findAll() {
-		List<Marque> listeMarques = new ArrayList<Marque>();
+	public List<Ingredient> findAll() {
+		List<Ingredient> listeIngredients = new ArrayList<Ingredient>();
 		Connection con = ConnectionManager.getInstance();
 		try {
-			PreparedStatement statement = con.prepareStatement("select * from marque");
+			PreparedStatement statement = con.prepareStatement("select * from ingredient");
 			ResultSet curseur = statement.executeQuery();
 			while (curseur.next()) {
-				int idMarque = curseur.getInt("idmarque");
-				String nom = curseur.getString("nommarque");
-				Marque marque = new Marque(idMarque, nom);
-				listeMarques.add(marque);
+				int idIngredient = curseur.getInt("idingredient");
+				String nom = curseur.getString("nomingredient");
+				Ingredient ingredient = new Ingredient(idIngredient, nom);
+				listeIngredients.add(ingredient);
 
 			}
 
 		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la récupération de la liste des marques", e);
+			throw new TechnicalException("Erreur lors de la récupération de la liste des ingrédients", e);
 		}
 
 		try {
@@ -59,25 +60,25 @@ public class MarqueDao implements IMarqueDao {
 		} catch (SQLException e) {
 			throw new TechnicalException("Erreur lors de la fermeture de la base", e);
 		}
-		return listeMarques;
+		return listeIngredients;
 	}
 
 	@Override
-	public Marque findOne(int id) {
+	public Ingredient findOne(int id) {
 		Connection con = ConnectionManager.getInstance();
 		try {
-			PreparedStatement statement = con.prepareStatement("select * from marque where idMarque = ?");
+			PreparedStatement statement = con.prepareStatement("select * from ingredient where idingredient = ?");
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
 
 			if (curseur.next()) {
-				int idMarque = curseur.getInt("idmarque");
-				String nom = curseur.getString("nommarque");
-				Marque marque = new Marque(idMarque, nom);
+				int idIngredient = curseur.getInt("idingredient");
+				String nom = curseur.getString("nomingredient");
+				Ingredient ingredient = new Ingredient(idIngredient, nom);
 				if (con != null) {
 					con.close();
 				}
-				return marque;
+				return ingredient;
 			} else {
 				if (con != null) {
 					con.close();
@@ -85,9 +86,8 @@ public class MarqueDao implements IMarqueDao {
 				return null;
 			}
 		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la récupération de la marque", e);
+			throw new TechnicalException("Erreur lors de la récupération de l'ingrédient", e);
 		}
-
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class MarqueDao implements IMarqueDao {
 
 		PreparedStatement statement;
 		try {
-			statement = con.prepareStatement("select * from marque where idMarque = ?");
+			statement = con.prepareStatement("select * from ingredient where idingredient = ?");
 
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
@@ -119,27 +119,27 @@ public class MarqueDao implements IMarqueDao {
 	}
 
 	@Override
-	public void update(int id, Marque o) {
+	public void update(int id, Ingredient o) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Marque findByName(String name) {
+	public Ingredient findByName(String name) {
 		Connection con = ConnectionManager.getInstance();
 		try {
-			PreparedStatement statement = con.prepareStatement("select * from marque where nommarque = ?");
+			PreparedStatement statement = con.prepareStatement("select * from ingredient where nomingredient = ?");
 			statement.setString(1, name);
 			ResultSet curseur = statement.executeQuery();
 
 			if (curseur.next()) {
-				int idMarque = curseur.getInt("idmarque");
-				String nom = curseur.getString("nommarque");
-				Marque marque = new Marque(idMarque, nom);
+				int idIngredient = curseur.getInt("idingredient");
+				String nom = curseur.getString("nomingredient");
+				Ingredient ingredient = new Ingredient(idIngredient, nom);
 				if (con != null) {
 					con.close();
 				}
-				return marque;
+				return ingredient;
 			} else {
 				if (con != null) {
 					con.close();
@@ -147,7 +147,7 @@ public class MarqueDao implements IMarqueDao {
 				return null;
 			}
 		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la récupération de la marque", e);
+			throw new TechnicalException("Erreur lors de la récupération de l'ingrédient", e);
 		}
 	}
 

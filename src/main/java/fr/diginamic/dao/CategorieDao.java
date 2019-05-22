@@ -122,4 +122,37 @@ public class CategorieDao implements ICategorieDao {
 
 	}
 
+	@Override
+	public Categorie findByName(String name) {
+		Connection con = ConnectionManager.getInstance();
+		try {
+			PreparedStatement statement = con.prepareStatement("select * from categorie where nomcategorie = ?");
+			statement.setString(1, name);
+			ResultSet curseur = statement.executeQuery();
+
+			if (curseur.next()) {
+				int idcategorie = curseur.getInt("idcategorie");
+				String nom = curseur.getString("nomcategorie");
+				Categorie categorie = new Categorie(idcategorie, nom);
+				if (con != null) {
+					con.close();
+				}
+				return categorie;
+			} else {
+				if (con != null) {
+					con.close();
+				}
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new TechnicalException("Erreur lors de la récupération de la catégorie", e);
+		}
+	}
+
+	@Override
+	public boolean nameExists(String nom) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

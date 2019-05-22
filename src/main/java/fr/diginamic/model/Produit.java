@@ -1,5 +1,10 @@
 package fr.diginamic.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.diginamic.service.ParseService;
+
 /**
  * @author Guillaume
  *
@@ -67,6 +72,9 @@ public class Produit {
 	/** additifs : String */
 	private String additifs;
 
+	/** listeIngredients : List<Ingredient> */
+	private List<Ingredient> listeIngredients = new ArrayList<Ingredient>();
+
 	public Produit(int idProduit, String nomProduit, String gradeNutrition, Categorie categorieProduit,
 			Marque marqueProduit, float energie100g, float graisse100g, float sucres100g, float fibres100g,
 			float proteines100g, float sel100g, float vitA100g, float vitD100g, float vitE100g, float vitK100g,
@@ -106,42 +114,38 @@ public class Produit {
 		this.additifs = additifs;
 	}
 
-	public Produit(String nomProduit, String gradeNutrition, Categorie categorieProduit, Marque marqueProduit,
-			float energie100g, float graisse100g, float sucres100g, float fibres100g, float proteines100g,
-			float sel100g, float vitA100g, float vitD100g, float vitE100g, float vitK100g, float vitC100g,
-			float vitB1100g, float vitB2100g, float vitPP100g, float vitB6100g, float vitB9100g, float vitB12100g,
-			float calcium100g, float magnesium100g, float iron100g, float fer100g, float betaCarotene100g,
-			boolean presenceHuilePalme, String allergenes, String additifs) {
+	public Produit(String[] tableauFichier, Categorie categorie, Marque marque) {
 		super();
-		this.nomProduit = nomProduit;
-		this.gradeNutrition = gradeNutrition;
-		this.categorieProduit = categorieProduit;
-		this.marqueProduit = marqueProduit;
-		this.energie100g = energie100g;
-		this.graisse100g = graisse100g;
-		this.sucres100g = sucres100g;
-		this.fibres100g = fibres100g;
-		this.proteines100g = proteines100g;
-		this.sel100g = sel100g;
-		this.vitA100g = vitA100g;
-		this.vitD100g = vitD100g;
-		this.vitE100g = vitE100g;
-		this.vitK100g = vitK100g;
-		this.vitC100g = vitC100g;
-		this.vitB1100g = vitB1100g;
-		this.vitB2100g = vitB2100g;
-		this.vitPP100g = vitPP100g;
-		this.vitB6100g = vitB6100g;
-		this.vitB9100g = vitB9100g;
-		this.vitB12100g = vitB12100g;
-		this.calcium100g = calcium100g;
-		this.magnesium100g = magnesium100g;
-		this.iron100g = iron100g;
-		this.fer100g = fer100g;
-		this.betaCarotene100g = betaCarotene100g;
-		this.presenceHuilePalme = presenceHuilePalme;
-		this.allergenes = allergenes;
-		this.additifs = additifs;
+
+		this.nomProduit = tableauFichier[2];
+		this.gradeNutrition = tableauFichier[3];
+		this.categorieProduit = categorie;
+		this.marqueProduit = marque;
+		this.energie100g = ParseService.tryToParse(tableauFichier[5]);
+		this.graisse100g = ParseService.tryToParse(tableauFichier[6]);
+		this.sucres100g = ParseService.tryToParse(tableauFichier[7]);
+		this.fibres100g = ParseService.tryToParse(tableauFichier[8]);
+		this.proteines100g = ParseService.tryToParse(tableauFichier[9]);
+		this.sel100g = ParseService.tryToParse(tableauFichier[10]);
+		this.vitA100g = ParseService.tryToParse(tableauFichier[11]);
+		this.vitD100g = ParseService.tryToParse(tableauFichier[12]);
+		this.vitE100g = ParseService.tryToParse(tableauFichier[13]);
+		this.vitK100g = ParseService.tryToParse(tableauFichier[14]);
+		this.vitC100g = ParseService.tryToParse(tableauFichier[15]);
+		this.vitB1100g = ParseService.tryToParse(tableauFichier[16]);
+		this.vitB2100g = ParseService.tryToParse(tableauFichier[17]);
+		this.vitPP100g = ParseService.tryToParse(tableauFichier[18]);
+		this.vitB6100g = ParseService.tryToParse(tableauFichier[19]);
+		this.vitB9100g = ParseService.tryToParse(tableauFichier[20]);
+		this.vitB12100g = ParseService.tryToParse(tableauFichier[21]);
+		this.calcium100g = ParseService.tryToParse(tableauFichier[22]);
+		this.magnesium100g = ParseService.tryToParse(tableauFichier[23]);
+		this.iron100g = ParseService.tryToParse(tableauFichier[24]);
+		this.fer100g = ParseService.tryToParse(tableauFichier[25]);
+		this.betaCarotene100g = ParseService.tryToParse(tableauFichier[26]);
+		this.presenceHuilePalme = ParseService.parseBoolean(tableauFichier[27]);
+		this.allergenes = tableauFichier[28];
+		this.additifs = tableauFichier[29];
 	}
 
 	@Override

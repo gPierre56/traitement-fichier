@@ -10,7 +10,11 @@ public interface IDao<T> {
 
 	public T findOne(int id);
 
+	public T findByName(String name);
+
 	public boolean exists(int id);
+
+	public boolean nameExists(String nom);
 
 	public void delete(int id);
 

@@ -225,4 +225,16 @@ public class ProduitDao implements IProduitDao {
 		}
 	}
 
+	@Override
+	public Produit findByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean nameExists(String nom) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
