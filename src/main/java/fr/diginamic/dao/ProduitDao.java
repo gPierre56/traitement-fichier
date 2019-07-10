@@ -57,14 +57,6 @@ public class ProduitDao implements IProduitDao {
 			throw new TechnicalException("Ajout du produit impossible", e);
 		}
 
-		try {
-			if (con != null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			throw new TechnicalException("Fermeture de la connexion impossible", e);
-		}
-
 	}
 
 	@Override
@@ -120,12 +112,6 @@ public class ProduitDao implements IProduitDao {
 		} catch (SQLException e) {
 			throw new TechnicalException("Erreur lors de la récupération de la liste des Produits", e);
 		}
-
-		try {
-			con.close();
-		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la fermeture de la base", e);
-		}
 		return listeProduits;
 	}
 
@@ -140,10 +126,9 @@ public class ProduitDao implements IProduitDao {
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
 			if (curseur.next()) {
-				con.close();
 				return true;
 			} else {
-				con.close();
+
 				return false;
 			}
 		} catch (SQLException e) {
@@ -210,14 +195,8 @@ public class ProduitDao implements IProduitDao {
 						vitB2_100g, vitPP_100g, vitB6_100g, vitB9_100g, vitB12_100g, calcium_100g, magnesium_100g,
 						iron_100g, fer_100g, betaCarotene_100g, presenceHuilePalme, allergenes, additifs);
 
-				if (con != null) {
-					con.close();
-				}
 				return produit;
 			} else {
-				if (con != null) {
-					con.close();
-				}
 				return null;
 			}
 		} catch (SQLException e) {

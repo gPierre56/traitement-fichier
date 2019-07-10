@@ -25,14 +25,6 @@ public class MarqueDao implements IMarqueDao {
 			throw new TechnicalException("Ajout de la marque impossible", e);
 		}
 
-		try {
-			if (con != null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			throw new TechnicalException("Fermeture de la connexion impossible", e);
-		}
-
 	}
 
 	@Override
@@ -53,12 +45,6 @@ public class MarqueDao implements IMarqueDao {
 		} catch (SQLException e) {
 			throw new TechnicalException("Erreur lors de la récupération de la liste des marques", e);
 		}
-
-		try {
-			con.close();
-		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la fermeture de la base", e);
-		}
 		return listeMarques;
 	}
 
@@ -74,14 +60,9 @@ public class MarqueDao implements IMarqueDao {
 				int idMarque = curseur.getInt("idmarque");
 				String nom = curseur.getString("nommarque");
 				Marque marque = new Marque(idMarque, nom);
-				if (con != null) {
-					con.close();
-				}
 				return marque;
 			} else {
-				if (con != null) {
-					con.close();
-				}
+
 				return null;
 			}
 		} catch (SQLException e) {
@@ -101,10 +82,10 @@ public class MarqueDao implements IMarqueDao {
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
 			if (curseur.next()) {
-				con.close();
+
 				return true;
 			} else {
-				con.close();
+
 				return false;
 			}
 		} catch (SQLException e) {
@@ -136,14 +117,8 @@ public class MarqueDao implements IMarqueDao {
 				int idMarque = curseur.getInt("idmarque");
 				String nom = curseur.getString("nommarque");
 				Marque marque = new Marque(idMarque, nom);
-				if (con != null) {
-					con.close();
-				}
 				return marque;
 			} else {
-				if (con != null) {
-					con.close();
-				}
 				return null;
 			}
 		} catch (SQLException e) {

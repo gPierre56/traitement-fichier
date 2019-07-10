@@ -25,15 +25,6 @@ public class IngredientDao implements IIngredientDao {
 		} catch (SQLException e) {
 			throw new TechnicalException("Ajout de l'ingrédient impossible", e);
 		}
-
-		try {
-			if (con != null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			throw new TechnicalException("Fermeture de la connexion impossible", e);
-		}
-
 	}
 
 	@Override
@@ -54,12 +45,6 @@ public class IngredientDao implements IIngredientDao {
 		} catch (SQLException e) {
 			throw new TechnicalException("Erreur lors de la récupération de la liste des ingrédients", e);
 		}
-
-		try {
-			con.close();
-		} catch (SQLException e) {
-			throw new TechnicalException("Erreur lors de la fermeture de la base", e);
-		}
 		return listeIngredients;
 	}
 
@@ -75,14 +60,8 @@ public class IngredientDao implements IIngredientDao {
 				int idIngredient = curseur.getInt("idingredient");
 				String nom = curseur.getString("nomingredient");
 				Ingredient ingredient = new Ingredient(idIngredient, nom);
-				if (con != null) {
-					con.close();
-				}
 				return ingredient;
 			} else {
-				if (con != null) {
-					con.close();
-				}
 				return null;
 			}
 		} catch (SQLException e) {
@@ -101,10 +80,8 @@ public class IngredientDao implements IIngredientDao {
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
 			if (curseur.next()) {
-				con.close();
 				return true;
 			} else {
-				con.close();
 				return false;
 			}
 		} catch (SQLException e) {
@@ -136,14 +113,8 @@ public class IngredientDao implements IIngredientDao {
 				int idIngredient = curseur.getInt("idingredient");
 				String nom = curseur.getString("nomingredient");
 				Ingredient ingredient = new Ingredient(idIngredient, nom);
-				if (con != null) {
-					con.close();
-				}
 				return ingredient;
 			} else {
-				if (con != null) {
-					con.close();
-				}
 				return null;
 			}
 		} catch (SQLException e) {

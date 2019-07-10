@@ -74,14 +74,9 @@ public class CategorieDao implements ICategorieDao {
 				int idcategorie = curseur.getInt("idcategorie");
 				String nom = curseur.getString("nomcategorie");
 				Categorie categorie = new Categorie(idcategorie, nom);
-				if (con != null) {
-					con.close();
-				}
 				return categorie;
 			} else {
-				if (con != null) {
-					con.close();
-				}
+
 				return null;
 			}
 		} catch (SQLException e) {
@@ -99,10 +94,8 @@ public class CategorieDao implements ICategorieDao {
 			statement.setInt(1, id);
 			ResultSet curseur = statement.executeQuery();
 			if (curseur.next()) {
-				con.close();
 				return true;
 			} else {
-				con.close();
 				return false;
 			}
 		} catch (SQLException e) {
@@ -125,27 +118,34 @@ public class CategorieDao implements ICategorieDao {
 	@Override
 	public Categorie findByName(String name) {
 		Connection con = ConnectionManager.getInstance();
+		ResultSet curseur = null;
+		PreparedStatement statement = null;
 		try {
-			PreparedStatement statement = con.prepareStatement("select * from categorie where nomcategorie = ?");
+			statement = con.prepareStatement("select * from categorie where nomcategorie = ?");
 			statement.setString(1, name);
-			ResultSet curseur = statement.executeQuery();
+			curseur = statement.executeQuery();
 
 			if (curseur.next()) {
 				int idcategorie = curseur.getInt("idcategorie");
 				String nom = curseur.getString("nomcategorie");
 				Categorie categorie = new Categorie(idcategorie, nom);
-				if (con != null) {
-					con.close();
-				}
+
 				return categorie;
-			} else {
-				if (con != null) {
-					con.close();
-				}
-				return null;
 			}
+			return null;
 		} catch (SQLException e) {
 			throw new TechnicalException("Erreur lors de la récupération de la catégorie", e);
+		} finally {
+			try {
+				if (curseur != null) {
+					curseur.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				throw new TechnicalException("Erreur lors de la récupération de la catégorie", e);
+			}
 		}
 	}
 
